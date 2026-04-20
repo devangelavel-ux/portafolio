@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angela Velásquez · Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0f0f;
+    --paper: #faf8f4;
+    --accent: #c4622d;
+    --accent2: #2d6e8e;
+    --muted: #6b6660;
+    --border: #e0dbd4;
+    --card: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(250,248,244,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem 6rem 4rem;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.3rem 0.8rem; border-radius: 2rem;
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.6s ease 0.4s forwards;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--accent);
+  }
+  .hero-desc {
+    font-size: 1.05rem; color: var(--muted);
+    max-width: 440px; line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.6s ease 0.6s forwards;
+  }
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.6s ease 0.8s forwards;
+  }
+  .btn-primary {
+    background: var(--ink); color: var(--paper);
+    padding: 0.8rem 1.8rem; border-radius: 3rem;
+    font-size: 0.9rem; font-weight: 500;
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-secondary {
+    border: 1.5px solid var(--border); color: var(--ink);
+    padding: 0.8rem 1.8rem; border-radius: 3rem;
+    font-size: 0.9rem; font-weight: 500;
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+  .hero-right {
+    background: var(--ink);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 60% 40%, #c4622d22 0%, transparent 70%),
+                radial-gradient(ellipse at 20% 80%, #2d6e8e18 0%, transparent 60%);
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; position: relative; z-index: 1;
+    opacity: 0; animation: fadeUp 0.6s ease 1s forwards;
+  }
+  .stat {
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0.75rem;
+    background: rgba(255,255,255,0.04);
+  }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem; font-weight: 700;
+    color: #fff; line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.8rem; color: rgba(255,255,255,0.5);
+    margin-top: 0.4rem; letter-spacing: 0.04em;
+  }
+  .hero-skills {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-top: 2rem; position: relative; z-index: 1;
+    opacity: 0; animation: fadeUp 0.6s ease 1.1s forwards;
+  }
+  .skill-chip {
+    font-size: 0.75rem; letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.7);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 0.35rem 0.8rem; border-radius: 2rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700; line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    color: var(--muted); font-size: 1rem;
+    max-width: 560px; line-height: 1.7;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ── PROJECTS ── */
+  #proyectos { background: #fff; }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5rem;
+  }
+
+  .project-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .project-card.visible { opacity: 1; transform: translateY(0); }
+  .project-card.reverse { direction: rtl; }
+  .project-card.reverse > * { direction: ltr; }
+
+  .project-visual {
+    aspect-ratio: 4/3;
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    background: var(--ink);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  }
+  .project-visual img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .project-card:hover .project-visual img { transform: scale(1.04); }
+  .project-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem; padding: 2rem; text-align: center;
+  }
+  .project-placeholder .icon { font-size: 3rem; }
+  .project-placeholder p {
+    font-size: 0.85rem; color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+  .project-placeholder .site-url {
+    font-size: 0.75rem; color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .project-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; font-weight: 700;
+    color: var(--border); line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .project-category {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem; font-weight: 700;
+    line-height: 1.2; margin-bottom: 1rem;
+  }
+  .project-desc {
+    color: var(--muted); font-size: 0.95rem;
+    line-height: 1.7; margin-bottom: 1.5rem;
+  }
+  .project-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .tag {
+    font-size: 0.75rem; letter-spacing: 0.04em;
+    color: var(--ink); background: var(--paper);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.75rem; border-radius: 2rem;
+  }
+  .project-highlights {
+    border-left: 2px solid var(--accent);
+    padding-left: 1rem; margin-bottom: 1.5rem;
+  }
+  .project-highlights li {
+    font-size: 0.9rem; color: var(--muted);
+    line-height: 1.6; list-style: none;
+    padding: 0.2rem 0;
+  }
+  .project-highlights li::before {
+    content: '→ '; color: var(--accent); font-weight: 500;
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.85rem; font-weight: 500;
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 0.1rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .project-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── ABOUT ── */
+  #sobre-mi {
+    background: var(--ink); color: #fff;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: center;
+  }
+  #sobre-mi .section-title { color: #fff; }
+  #sobre-mi .section-sub { color: rgba(255,255,255,0.6); }
+  .about-text p {
+    color: rgba(255,255,255,0.75); font-size: 1rem;
+    line-height: 1.8; margin-bottom: 1.2rem;
+  }
+  .about-text strong { color: #fff; }
+  .skills-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .skill-group h4 {
+    font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .skill-list { list-style: none; }
+  .skill-list li {
+    font-size: 0.9rem; color: rgba(255,255,255,0.65);
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ── PROCESS ── */
+  #proceso { background: var(--paper); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .step {
+    padding: 2rem;
+    background: #fff;
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .step:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; color: var(--border);
+    font-weight: 700; line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .step h3 {
+    font-size: 1rem; font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .step p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── CONTACT ── */
+  #contacto {
+    background: #fff;
+    text-align: center;
+    padding: 6rem 4rem;
+  }
+  #contacto .section-title { margin-bottom: 0.75rem; }
+  #contacto .section-sub {
+    margin: 0 auto 3rem;
+    max-width: 500px;
+  }
+  .contact-links {
+    display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-size: 0.9rem; font-weight: 500;
+    color: var(--ink); text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border: 1.5px solid var(--border);
+    border-radius: 3rem;
+    transition: all 0.2s;
+  }
+  .contact-link:hover {
+    border-color: var(--accent); color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.4);
+    text-align: center; padding: 2rem;
+    font-size: 0.8rem; letter-spacing: 0.04em;
+  }
+
+  /* ── IMAGE UPLOAD HINT ── */
+  .upload-hint {
+    background: #fff8f0;
+    border: 1.5px dashed var(--accent);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 8rem 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .project-card, .project-card.reverse { grid-template-columns: 1fr; direction: ltr; }
+    #sobre-mi { grid-template-columns: 1fr; gap: 3rem; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 500px) {
+    .process-steps { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Angela Velásquez</a>
+  <ul class="nav-links">
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-tag">Product Designer · Medellín, Colombia</span>
+    <h1>Diseño que <em>conecta</em> con las personas</h1>
+    <p class="hero-desc">
+      Creo experiencias digitales centradas en el usuario, combinando diseño de sistemas, prototipado y pensamiento estratégico con una base técnica en desarrollo frontend.
+    </p>
+    <div class="hero-ctas">
+      <a href="#proyectos" class="btn-primary">Ver proyectos</a>
+      <a href="#contacto" class="btn-secondary">Hablemos</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Años de experiencia</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Productos diseñados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">DS</div>
+        <div class="stat-label">Design Systems</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Tiendas WooCommerce</div>
+      </div>
+    </div>
+    <div class="hero-skills">
+      <span class="skill-chip">Figma</span>
+      <span class="skill-chip">Design Systems</span>
+      <span class="skill-chip">Vue.js</span>
+      <span class="skill-chip">WordPress</span>
+      <span class="skill-chip">Atomic Design</span>
+      <span class="skill-chip">WooCommerce</span>
+      <span class="skill-chip">Flutter</span>
+      <span class="skill-chip">UX Research</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div style="max-width:1200px; margin:0 auto;">
+    <p class="section-label">Trabajos destacados</p>
+    <h2 class="section-title">Proyectos seleccionados</h2>
+    <p class="section-sub">Casos reales donde el diseño resolvió problemas concretos, desde sistemas de diseño empresariales hasta tiendas eCommerce completas.</p>
+
+    <div class="project-grid">
+
+      <!-- PROYECTO 1: KronLine DS -->
+      <div class="project-card" data-aos>
+        <div class="project-visual" style="background: #0f1a2e;">
+          <!-- Reemplaza esta sección con: <img src="captura-kronline.png" alt="KronLine Design System"> -->
+          <div class="project-placeholder">
+            <div class="icon">🎨</div>
+            <p style="color:rgba(255,255,255,0.8); font-size:1rem; font-weight:500;">KronLine Design System</p>
+            <p>Sistema de diseño completo en Figma con tokens, variables y componentes atómicos para app web React + mobile Flutter.</p>
+            <span class="site-url">Figma · KronLine DS</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <div class="project-number">01</div>
+          <div class="project-category">Design System · UX · Figma</div>
+          <h3 class="project-title">KronLine Design System</h3>
+          <p class="project-desc">
+            Auditoría y construcción completa del sistema de diseño para KronLine, una aplicación de gestión de turnos y fuerza laboral con plataforma web en React y app móvil en Flutter.
+          </p>
+          <ul class="project-highlights">
+            <li>Auditoría del DS existente: identificación de brechas en tokens de color, tipografía y estados de componentes</li>
+            <li>Creación de sistema de tokens semánticos y variables en Figma</li>
+            <li>Biblioteca de componentes con metodología Atomic Design</li>
+            <li>Documentación y guías de uso para el equipo de desarrollo</li>
+            <li>Presentación técnica del sistema de diseño para stakeholders</li>
+          </ul>
+          <div class="project-tags">
+            <span class="tag">Figma Avanzado</span>
+            <span class="tag">Design Tokens</span>
+            <span class="tag">Atomic Design</span>
+            <span class="tag">Vue.js</span>
+            <span class="tag">Flutter</span>
+          </div>
+          <a href="https://www.figma.com/design/GYZImQ3QXN5x9s4jdhh8kO/KronLine" target="_blank" class="project-link">
+            Ver en Figma →
+          </a>
+        </div>
+      </div>
+
+      <!-- PROYECTO 2: Micora -->
+      <div class="project-card reverse" data-aos>
+        <div class="project-visual" style="background: #1a2e1a;">
+          <!-- Reemplaza esta sección con: <img src="captura-micora.png" alt="Micora Tienda"> -->
+          <div class="project-placeholder">
+            <div class="icon">🍄</div>
+            <p style="color:rgba(255,255,255,0.8); font-size:1rem; font-weight:500;">Micora · Hongos Funcionales</p>
+            <p>Tienda eCommerce completa para suplementos de hongos medicinales. Diseño e implementación en WordPress + WooCommerce.</p>
+            <span class="site-url">micora.enteobotanicos.com</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <div class="project-number">02</div>
+          <div class="project-category">eCommerce · WordPress · WooCommerce</div>
+          <h3 class="project-title">Micora — Tienda de Hongos Funcionales</h3>
+          <p class="project-desc">
+            Diseño e implementación completa de tienda eCommerce para Micora, marca colombiana de suplementos de hongos medicinales como Cordyceps, Reishi y Melena de León.
+          </p>
+          <ul class="project-highlights">
+            <li>Diseño de identidad visual y experiencia de marca para el eCommerce</li>
+            <li>Arquitectura de información y navegación por categorías de producto</li>
+            <li>Implementación completa en WordPress + WooCommerce</li>
+            <li>Páginas de producto con copywriting persuasivo orientado a conversión</li>
+            <li>Sección de FAQ, promos y lógica de carrito para múltiples SKUs</li>
+          </ul>
+          <div class="project-tags">
+            <span class="tag">WordPress</span>
+            <span class="tag">WooCommerce</span>
+            <span class="tag">UX Writing</span>
+            <span class="tag">eCommerce</span>
+            <span class="tag">Diseño web</span>
+          </div>
+          <a href="https://micora.enteobotanicos.com" target="_blank" class="project-link">
+            Ver sitio →
+          </a>
+        </div>
+      </div>
+
+      <!-- PROYECTO 3: Tejamono -->
+      <div class="project-card" data-aos>
+        <div class="project-visual" style="background: #2a1a0e;">
+          <!-- Reemplaza esta sección con: <img src="captura-tejamono.png" alt="Tejamono"> -->
+          <div class="project-placeholder">
+            <div class="icon">🧵</div>
+            <p style="color:rgba(255,255,255,0.8); font-size:1rem; font-weight:500;">Tejamono · Tintorería Artesanal</p>
+            <p>Sitio web para marca colombiana especializada en tintorería artesanal de hilos naturales. Diseño e implementación en WordPress.</p>
+            <span class="site-url">tejamono.com</span>
+          </div>
+        </div>
+        <div class="project-info">
+          <div class="project-number">03</div>
+          <div class="project-category">Marca · WordPress · Diseño Web</div>
+          <h3 class="project-title">Tejamono — Tintorería Artesanal</h3>
+          <p class="project-desc">
+            Diseño e implementación del sitio web para Tejamono, marca colombiana fundada en 2016 que combina técnicas tradicionales de tintorería artesanal con hilos naturales teñidos a mano.
+          </p>
+          <ul class="project-highlights">
+            <li>Diseño visual que refleja la identidad artesanal y colorida de la marca</li>
+            <li>Implementación completa en WordPress orientada a tejedoras y artesanas</li>
+            <li>Integración con redes sociales (Instagram, Facebook) como canal principal</li>
+            <li>Arquitectura pensada para catálogo de productos y comunidad artesanal</li>
+          </ul>
+          <div class="project-tags">
+            <span class="tag">WordPress</span>
+            <span class="tag">Identidad visual</span>
+            <span class="tag">Diseño artesanal</span>
+            <span class="tag">Marca colombiana</span>
+          </div>
+          <a href="https://tejamono.com" target="_blank" class="project-link">
+            Ver sitio →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div style="max-width:1200px; margin:0 auto;">
+    <p class="section-label">Cómo trabajo</p>
+    <h2 class="section-title">Mi proceso de diseño</h2>
+    <p class="section-sub">Cada proyecto sigue un proceso centrado en entender el problema antes de proponer soluciones.</p>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Descubrimiento</h3>
+        <p>Entiendo el negocio, los usuarios y los objetivos. Reviso lo que existe, identifico brechas y oportunidades.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Definición</h3>
+        <p>Organizo la información, mapeo flujos de usuario y defino los principios de diseño que guiarán el proyecto.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Diseño</h3>
+        <p>Wireframes, prototipos en Figma y sistema de componentes. Itero con feedback del equipo y los usuarios.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Entrega</h3>
+        <p>Documentación, handoff al equipo de desarrollo y validación de implementación. El diseño funciona de verdad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="sobre-mi">
+  <div class="about-text">
+    <p class="section-label" style="color:var(--accent);">Sobre mí</p>
+    <h2 class="section-title">Diseño con <em style="font-style:italic;">propósito</em></h2>
+    <p>Soy <strong>Angela Patricia Velásquez</strong>, Product Designer con base en Medellín, Colombia. Tengo más de 5 años de experiencia creando productos digitales que equilibran estética, funcionalidad y negocio.</p>
+    <p>Mi formación como <strong>Tecnóloga en Diseño Gráfico</strong> (Universidad Minuto de Dios) se combina con experiencia real en desarrollo frontend — lo que me permite comunicarme con fluidez tanto con equipos de diseño como de desarrollo.</p>
+    <p>Actualmente trabajo en <strong>TSGroup SAS</strong> liderando el Design System de KronLine, una app de gestión de fuerza laboral con plataforma web en React y mobile en Flutter.</p>
+  </div>
+  <div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Diseño</h4>
+        <ul class="skill-list">
+          <li>Figma (avanzado)</li>
+          <li>Design Systems</li>
+          <li>Atomic Design</li>
+          <li>Prototipado</li>
+          <li>Adobe Suite</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Desarrollo</h4>
+        <ul class="skill-list">
+          <li>Vue.js</li>
+          <li>HTML / CSS</li>
+          <li>WordPress</li>
+          <li>WooCommerce</li>
+          <li>Flutter</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Proceso</h4>
+        <ul class="skill-list">
+          <li>User Research</li>
+          <li>Agile / Scrum</li>
+          <li>Design Thinking</li>
+          <li>Prompt Engineering</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Idiomas</h4>
+        <ul class="skill-list">
+          <li>Español — Nativo</li>
+          <li>Inglés — B2</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <p class="section-label">¿Trabajamos juntos?</p>
+  <h2 class="section-title">Hablemos</h2>
+  <p class="section-sub">Estoy disponible para proyectos remotos. Si buscas una Product Designer con visión técnica y pasión por los sistemas de diseño, escríbeme.</p>
+  <div class="contact-links">
+    <a href="mailto:angel4vpro@gmail.com" class="contact-link">
+      ✉️ angel4vpro@gmail.com
+    </a>
+    <a href="https://linkedin.com/in/angela-velasquez-webdesign" target="_blank" class="contact-link">
+      💼 LinkedIn
+    </a>
+    <a href="https://www.figma.com/design/GYZImQ3QXN5x9s4jdhh8kO/KronLine" target="_blank" class="contact-link">
+      🎨 Figma — KronLine DS
+    </a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Angela Patricia Velásquez Ortiz · Medellín, Colombia · Disponible para trabajo remoto
+</footer>
+
+<script>
+  // Scroll reveal para project cards
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.project-card[data-aos]').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
